@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goal Setter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .remove-btn {
+            margin-left: 10px;
+            background-color: #dc3545;
+        }
+        .remove-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Goal Setter</h1>
+        <form id="goalForm">
+            <label for="goal">Goal:</label>
+            <input type="text" id="goal" placeholder="What do you want to achieve?" required>
+
+            <label for="specifics">Specifics (SMART):</label>
+            <textarea id="specifics" rows="4" placeholder="Details about your goal (Specific, Measurable, Achievable, Relevant, Time-bound)" required></textarea>
+
+            <label for="actionPlan">Action Plan:</label>
+            <textarea id="actionPlan" rows="4" placeholder="Outline the steps you will take" required></textarea>
+
+            <button type="submit">Add Goal</button>
+        </form>
+        <div id="goalList" style="margin-top: 20px;">
+            <h2>Your Goals:</h2>
+            <ul id="goals"></ul>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('goalForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const goal = document.getElementById('goal').value;
+            const specifics = document.getElementById('specifics').value;
+            const actionPlan = document.getElementById('actionPlan').value;
+
+            const goalList = document.getElementById('goals');
+            const listItem = document.createElement('li');
+            listItem.textContent = `${goal}: ${specifics} | Action Plan: ${actionPlan}`;
+
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove';
+            removeButton.className = 'remove-btn';
+            removeButton.onclick = function() {
+                goalList.removeChild(listItem);
+            };
+
+            listItem.appendChild(removeButton);
+            goalList.appendChild(listItem);
+
+            // Clear the input fields
+            document.getElementById('goalForm').reset();
+        });
+    </script>
+
+</body>
+</html>
